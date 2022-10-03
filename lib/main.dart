@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_plane/components/pages/sign_up_page.dart';
 
 import 'components/pages/get_started_page.dart';
 import 'components/pages/spalsh_page.dart';
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const SplashScreen(),
         '/get-started': (context) => const GetStartedPage(),
+        '/sign-up': (context) => const SignUpPage(),
       },
     );
   }
