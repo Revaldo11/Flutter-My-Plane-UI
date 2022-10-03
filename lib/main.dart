@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'components/pages/spalsh_screen.dart';
+import 'components/pages/get_started_page.dart';
+import 'components/pages/spalsh_page.dart';
 
 void main() => runApp(const MyApp());
 
@@ -13,6 +14,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: {
         '/': (context) => const SplashScreen(),
+        '/get-started': (context) => const GetStartedPage(),
       },
     );
   }
