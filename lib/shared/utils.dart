@@ -17,6 +17,7 @@ Color kInactiveColor = Color(0xffDBD7EC);
 Color kTransparentColor = Colors.transparent;
 Color kAvailableColor = Color(0xffE0D9FF);
 Color kUnavailableColor = Color(0xffEBECF1);
+Color kBorderColor = Color(0xff5C40CC);
 
 TextStyle blackTextStyle = GoogleFonts.poppins(
   color: kBlackColor,

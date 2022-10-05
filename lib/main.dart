@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_plane/components/pages/bonus_page.dart';
 import 'package:my_plane/components/pages/sign_up_page.dart';
 
 import 'components/pages/get_started_page.dart';
@@ -15,8 +16,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: {
         '/': (context) => const SplashScreen(),
-        '/get-started': (context) => const GetStartedPage(),
-        '/sign-up': (context) => const SignUpPage(),
+        '/get-started': (context) => GetStartedPage(),
+        '/sign-up': (context) => BonusPage(),
       },
     );
   }
