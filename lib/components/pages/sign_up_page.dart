@@ -4,7 +4,7 @@ import 'package:my_plane/components/widgets/custom_text_form_field.dart';
 import 'package:my_plane/shared/utils.dart';
 
 class SignUpPage extends StatelessWidget {
-  SignUpPage({Key? key}) : super(key: key);
+  const SignUpPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +56,7 @@ class SignUpPage extends StatelessWidget {
           margin: const EdgeInsets.only(top: 30.0),
           title: 'Get Started',
           onPressed: () {
-            // Todo: Handle Submit Button
+            Navigator.pushNamed(context, '/bonus');
           },
         );
       }

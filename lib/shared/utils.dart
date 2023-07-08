@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -22,6 +20,7 @@ Color kBorderColor = Color(0xff5C40CC);
 TextStyle blackTextStyle = GoogleFonts.poppins(
   color: kBlackColor,
 );
+
 TextStyle whiteTextStyle = GoogleFonts.poppins(
   color: kWhiteColor,
 );
