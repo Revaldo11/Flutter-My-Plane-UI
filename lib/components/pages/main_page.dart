@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_plane/components/pages/home_page.dart';
 import 'package:my_plane/components/widgets/custom_button_nav_item.dart';
 import 'package:my_plane/shared/utils.dart';
 
@@ -10,14 +11,16 @@ class MainPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: kBackgroundColor,
       body: Stack(
-        children: const [
-          Center(
-            child: Text("Main Page"),
-          ),
+        children: [
+          buildContent(),
           BottomNavigation(),
         ],
       ),
     );
+  }
+
+  Widget buildContent() {
+    return HomePage();
   }
 }
 
