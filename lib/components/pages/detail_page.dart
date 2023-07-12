@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_plane/components/pages/choose_seat_page.dart';
 import 'package:my_plane/components/widgets/custom_button.dart';
 import 'package:my_plane/components/widgets/interest_item.dart';
 import 'package:my_plane/components/widgets/photo_item.dart';
@@ -17,7 +18,7 @@ class DetailPage extends StatelessWidget {
           children: [
             backgroundImage(),
             customShadow(),
-            content(),
+            content(context),
           ],
         ),
       ),
@@ -55,7 +56,7 @@ class DetailPage extends StatelessWidget {
     );
   }
 
-  Widget content() {
+  Widget content(BuildContext context) {
     return Container(
       margin:
           EdgeInsets.only(top: 30.0, left: defaultMargin, right: defaultMargin),
@@ -231,7 +232,12 @@ class DetailPage extends StatelessWidget {
                 CustomButton(
                   width: 170.0,
                   title: "Book Now",
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ChooseSeatPage()));
+                  },
                 ),
               ],
             ),
