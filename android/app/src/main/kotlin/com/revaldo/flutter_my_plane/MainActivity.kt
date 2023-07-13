@@ -1,4 +1,4 @@
-package com.revaldo.my_plane
+package com.revaldo.flutter_my_plane
 
 import io.flutter.embedding.android.FlutterActivity
 
