@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_plane/components/pages/checkout_page.dart';
 import 'package:my_plane/components/widgets/custom_button.dart';
 import 'package:my_plane/components/widgets/seat_item.dart';
 import 'package:my_plane/shared/utils.dart';
@@ -10,16 +11,14 @@ class ChooseSeatPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kBackgroundColor,
-      body: SingleChildScrollView(
-        child: ListView(
-          padding: EdgeInsets.symmetric(horizontal: defaultMargin),
-          children: [
-            title(),
-            seatStatus(),
-            selectSeat(),
-            checkoutButton(),
-          ],
-        ),
+      body: ListView(
+        padding: EdgeInsets.symmetric(horizontal: defaultMargin),
+        children: [
+          title(),
+          seatStatus(),
+          selectSeat(),
+          checkoutButton(context),
+        ],
       ),
     );
   }
@@ -333,12 +332,18 @@ class ChooseSeatPage extends StatelessWidget {
     );
   }
 
-  Widget checkoutButton() {
+  Widget checkoutButton(BuildContext context) {
     return CustomButton(
       width: 327.0,
       margin: const EdgeInsets.only(top: 30.0),
       title: "Continue to Checkout",
-      onPressed: () {},
+      onPressed: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const CheckoutPage(),
+            ));
+      },
     );
   }
 }

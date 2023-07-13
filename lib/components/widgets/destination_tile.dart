@@ -9,12 +9,14 @@ class DestinationTile extends StatelessWidget {
     required this.name,
     required this.city,
     this.rating = 0.0,
+    this.padding = EdgeInsets.zero,
   }) : super(key: key);
 
   final String imageUrl;
   final String name;
   final String city;
   final double rating;
+  final EdgeInsets padding;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,7 @@ class DestinationTile extends StatelessWidget {
           )),
       child: Container(
         margin: const EdgeInsets.only(top: 16.0),
-        padding: const EdgeInsets.all(10.0),
+        padding: padding,
         decoration: BoxDecoration(
           color: kWhiteColor,
           borderRadius: BorderRadius.circular(defaultRadius),
