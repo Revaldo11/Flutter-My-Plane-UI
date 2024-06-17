@@ -1,6 +1,13 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_plane/components/pages/home_page.dart';
+import 'package:my_plane/components/pages/settings_oage.dart';
+import 'package:my_plane/components/pages/transaction_page.dart';
+import 'package:my_plane/components/pages/wallet_page.dart';
 import 'package:my_plane/components/widgets/custom_button_nav_item.dart';
+import 'package:my_plane/cubit/page_cubit.dart';
 import 'package:my_plane/shared/utils.dart';
 
 class MainPage extends StatelessWidget {
@@ -8,19 +15,37 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: kBackgroundColor,
-      body: Stack(
-        children: [
-          buildContent(),
-          BottomNavigation(),
-        ],
+    return BlocProvider(
+      create: (_) => PageCubit(),
+      child: BlocBuilder<PageCubit, int>(
+        builder: (context, state) {
+          return Scaffold(
+            backgroundColor: kBackgroundColor,
+            body: Stack(
+              children: [
+                buildContent(state),
+                BottomNavigation(),
+              ],
+            ),
+          );
+        },
       ),
     );
   }
 
-  Widget buildContent() {
-    return HomePage();
+  Widget buildContent(int currentIndex) {
+    switch (currentIndex) {
+      case 0:
+        return const HomePage();
+      case 1:
+        return const TransactionPage();
+      case 2:
+        return const WalletPages();
+      case 3:
+        return const SettingPage();
+      default:
+        return const HomePage();
+    }
   }
 }
 
@@ -49,12 +74,21 @@ class BottomNavigation extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: const [
             CustomBottomNavItem(
+              currentIndex: 0,
               imageUrl: 'assets/images/icon_home.png',
-              isSelected: true,
             ),
-            CustomBottomNavItem(imageUrl: 'assets/images/icon_booking.png'),
-            CustomBottomNavItem(imageUrl: 'assets/images/icon_card.png'),
-            CustomBottomNavItem(imageUrl: 'assets/images/icon_settings.png'),
+            CustomBottomNavItem(
+              currentIndex: 1,
+              imageUrl: 'assets/images/icon_booking.png',
+            ),
+            CustomBottomNavItem(
+              currentIndex: 2,
+              imageUrl: 'assets/images/icon_card.png',
+            ),
+            CustomBottomNavItem(
+              currentIndex: 3,
+              imageUrl: 'assets/images/icon_settings.png',
+            ),
           ],
         ),
       ),
