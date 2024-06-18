@@ -1,11 +1,20 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:my_plane/components/pages/checkout_page.dart';
 import 'package:my_plane/components/widgets/custom_button.dart';
 import 'package:my_plane/components/widgets/seat_item.dart';
+import 'package:my_plane/cubit/seat_cubit.dart';
+import 'package:my_plane/models/destination_model.dart';
 import 'package:my_plane/shared/utils.dart';
 
 class ChooseSeatPage extends StatelessWidget {
-  const ChooseSeatPage({Key? key}) : super(key: key);
+  const ChooseSeatPage({Key? key, required this.destinationModel})
+      : super(key: key);
+
+  final DestinationModel destinationModel;
 
   @override
   Widget build(BuildContext context) {
@@ -96,239 +105,289 @@ class ChooseSeatPage extends StatelessWidget {
   }
 
   Widget selectSeat() {
-    return Container(
-      margin: const EdgeInsets.only(top: 30.0),
-      padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 30.0),
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: kWhiteColor,
-        borderRadius: BorderRadius.circular(18.0),
-      ),
-      child: Column(
-        children: [
-          // NOTE: SEAT INDICATOR
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+    return BlocBuilder<SeatCubit, List<String>>(
+      builder: (context, state) {
+        return Container(
+          margin: const EdgeInsets.only(top: 30.0),
+          padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 30.0),
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: kWhiteColor,
+            borderRadius: BorderRadius.circular(18.0),
+          ),
+          child: Column(
             children: [
-              SizedBox(
-                width: 48.0,
-                height: 48.0,
-                child: Center(
-                  child: Text(
-                    "A",
-                    style: greyTextStyle,
+              // NOTE: SEAT INDICATOR
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  SizedBox(
+                    width: 48.0,
+                    height: 48.0,
+                    child: Center(
+                      child: Text(
+                        "A",
+                        style: greyTextStyle,
+                      ),
+                    ),
                   ),
+                  SizedBox(
+                    width: 48.0,
+                    height: 48.0,
+                    child: Center(
+                      child: Text(
+                        "B",
+                        style: greyTextStyle,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 48.0,
+                    height: 48.0,
+                    child: Center(
+                      child: Text(
+                        "",
+                        style: greyTextStyle,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 48.0,
+                    height: 48.0,
+                    child: Center(
+                      child: Text(
+                        "B",
+                        style: greyTextStyle,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 48.0,
+                    height: 48.0,
+                    child: Center(
+                      child: Text(
+                        "C",
+                        style: greyTextStyle,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+
+              // NOTE: SEAT 1
+              Container(
+                margin: const EdgeInsets.only(top: 16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    SeatItem(
+                      isAvailable: false,
+                      id: "A1",
+                    ),
+                    SeatItem(
+                      isAvailable: true,
+                      id: "B1",
+                    ),
+                    SizedBox(
+                      width: 48.0,
+                      height: 48.0,
+                      child: Center(
+                        child: Text(
+                          "1",
+                          style: greyTextStyle,
+                        ),
+                      ),
+                    ),
+                    SeatItem(
+                      id: "C1",
+                    ),
+                    SeatItem(
+                      id: "D1",
+                    ),
+                  ],
                 ),
               ),
-              SizedBox(
-                width: 48.0,
-                height: 48.0,
-                child: Center(
-                  child: Text(
-                    "B",
-                    style: greyTextStyle,
-                  ),
+
+              // NOTE: SEAT 2
+              Container(
+                margin: const EdgeInsets.only(top: 16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    SeatItem(
+                      id: "A2",
+                    ),
+                    SeatItem(
+                      id: "B2",
+                    ),
+                    SizedBox(
+                      width: 48.0,
+                      height: 48.0,
+                      child: Center(
+                        child: Text(
+                          "2",
+                          style: greyTextStyle,
+                        ),
+                      ),
+                    ),
+                    SeatItem(
+                      id: "C2",
+                    ),
+                    SeatItem(
+                      id: "D2",
+                    ),
+                  ],
                 ),
               ),
-              SizedBox(
-                width: 48.0,
-                height: 48.0,
-                child: Center(
-                  child: Text(
-                    "",
-                    style: greyTextStyle,
-                  ),
+
+              // NOTE: SEAT 3
+              Container(
+                margin: const EdgeInsets.only(top: 16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    SeatItem(
+                      id: "A3",
+                    ),
+                    SeatItem(
+                      id: "B3",
+                    ),
+                    SizedBox(
+                      width: 48.0,
+                      height: 48.0,
+                      child: Center(
+                        child: Text(
+                          "3",
+                          style: greyTextStyle,
+                        ),
+                      ),
+                    ),
+                    SeatItem(
+                      id: "C3",
+                    ),
+                    SeatItem(
+                      id: "D3",
+                    ),
+                  ],
                 ),
               ),
-              SizedBox(
-                width: 48.0,
-                height: 48.0,
-                child: Center(
-                  child: Text(
-                    "B",
-                    style: greyTextStyle,
-                  ),
+
+              // NOTE: SEAT 4
+              Container(
+                margin: const EdgeInsets.only(top: 16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    SeatItem(
+                      id: "A4",
+                    ),
+                    SeatItem(
+                      id: "B4",
+                    ),
+                    SizedBox(
+                      width: 48.0,
+                      height: 48.0,
+                      child: Center(
+                        child: Text(
+                          "4",
+                          style: greyTextStyle,
+                        ),
+                      ),
+                    ),
+                    SeatItem(
+                      id: "C4",
+                    ),
+                    SeatItem(
+                      id: "D4",
+                    ),
+                  ],
                 ),
               ),
-              SizedBox(
-                width: 48.0,
-                height: 48.0,
-                child: Center(
-                  child: Text(
-                    "C",
-                    style: greyTextStyle,
-                  ),
+
+              // NOTE: SEAT 5
+              Container(
+                margin: const EdgeInsets.only(top: 16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    SeatItem(
+                      id: "A5",
+                    ),
+                    SeatItem(
+                      id: "B5",
+                    ),
+                    SizedBox(
+                      width: 48.0,
+                      height: 48.0,
+                      child: Center(
+                        child: Text(
+                          "5",
+                          style: greyTextStyle,
+                        ),
+                      ),
+                    ),
+                    SeatItem(
+                      id: "C5",
+                    ),
+                    SeatItem(
+                      id: "D5",
+                    ),
+                  ],
+                ),
+              ),
+
+              //NOTE: YOUR SEAT
+              Container(
+                margin: const EdgeInsets.only(top: 30.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Your Seat",
+                      style: greyTextStyle.copyWith(
+                        fontWeight: light,
+                      ),
+                    ),
+                    Text(
+                      state.join(', ') != '' ? state.join(', ') : '-',
+                      style: blackTextStyle.copyWith(
+                        fontSize: 16.0,
+                        fontWeight: medium,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              // NOTE: TOTAL
+              Container(
+                margin: const EdgeInsets.only(top: 16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Total",
+                      style: greyTextStyle.copyWith(
+                        fontWeight: light,
+                      ),
+                    ),
+                    Text(
+                      NumberFormat.currency(
+                        locale: 'id_ID',
+                        symbol: 'IDR ',
+                        decimalDigits: 0,
+                      ).format(destinationModel.price * state.length),
+                      style: purpleTextStyle.copyWith(
+                        fontWeight: semiBold,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
           ),
-
-          // NOTE: SEAT 1
-          Container(
-            margin: const EdgeInsets.only(top: 16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                SeatItem(status: 2),
-                SeatItem(status: 2),
-                SizedBox(
-                  width: 48.0,
-                  height: 48.0,
-                  child: Center(
-                    child: Text(
-                      "1",
-                      style: greyTextStyle,
-                    ),
-                  ),
-                ),
-                SeatItem(status: 0),
-                SeatItem(status: 2),
-              ],
-            ),
-          ),
-
-          // NOTE: SEAT 2
-          Container(
-            margin: const EdgeInsets.only(top: 16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                SeatItem(status: 0),
-                SeatItem(status: 0),
-                SizedBox(
-                  width: 48.0,
-                  height: 48.0,
-                  child: Center(
-                    child: Text(
-                      "2",
-                      style: greyTextStyle,
-                    ),
-                  ),
-                ),
-                SeatItem(status: 0),
-                SeatItem(status: 2),
-              ],
-            ),
-          ),
-
-          // NOTE: SEAT 3
-          Container(
-            margin: const EdgeInsets.only(top: 16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                SeatItem(status: 1),
-                SeatItem(status: 1),
-                SizedBox(
-                  width: 48.0,
-                  height: 48.0,
-                  child: Center(
-                    child: Text(
-                      "3",
-                      style: greyTextStyle,
-                    ),
-                  ),
-                ),
-                SeatItem(status: 0),
-                SeatItem(status: 0),
-              ],
-            ),
-          ),
-
-          // NOTE: SEAT 4
-          Container(
-            margin: const EdgeInsets.only(top: 16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                SeatItem(status: 0),
-                SeatItem(status: 2),
-                SizedBox(
-                  width: 48.0,
-                  height: 48.0,
-                  child: Center(
-                    child: Text(
-                      "4",
-                      style: greyTextStyle,
-                    ),
-                  ),
-                ),
-                SeatItem(status: 0),
-                SeatItem(status: 0),
-              ],
-            ),
-          ),
-
-          // NOTE: SEAT 5
-          Container(
-            margin: const EdgeInsets.only(top: 16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                SeatItem(status: 0),
-                SeatItem(status: 0),
-                SizedBox(
-                  width: 48.0,
-                  height: 48.0,
-                  child: Center(
-                    child: Text(
-                      "5",
-                      style: greyTextStyle,
-                    ),
-                  ),
-                ),
-                SeatItem(status: 2),
-                SeatItem(status: 0),
-              ],
-            ),
-          ),
-
-          //NOTE: YOUR SEAT
-          Container(
-            margin: const EdgeInsets.only(top: 30.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Your Seat",
-                  style: greyTextStyle.copyWith(
-                    fontWeight: light,
-                  ),
-                ),
-                Text(
-                  "A3, B3",
-                  style: blackTextStyle.copyWith(
-                    fontSize: 16.0,
-                    fontWeight: medium,
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          // NOTE: TOTAL
-          Container(
-            margin: const EdgeInsets.only(top: 16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Total",
-                  style: greyTextStyle.copyWith(
-                    fontWeight: light,
-                  ),
-                ),
-                Text(
-                  "IDR 540.000.000",
-                  style: purpleTextStyle.copyWith(
-                    fontWeight: semiBold,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 

@@ -1,5 +1,9 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_plane/components/widgets/custom_button.dart';
+import 'package:my_plane/cubit/auth_cubit.dart';
 import 'package:my_plane/shared/utils.dart';
 
 class BonusPage extends StatelessWidget {
@@ -35,7 +39,7 @@ class ButtonStartFlyNow extends StatelessWidget {
       margin: const EdgeInsets.only(top: 50.0),
       title: 'Start Fly Now',
       onPressed: () {
-        Navigator.pushNamed(context, '/main');
+        Navigator.pushNamedAndRemoveUntil(context, '/main', (route) => false);
       },
     );
   }
@@ -48,31 +52,39 @@ class ContentText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(top: 80.0),
-      width: 250.0,
-      child: Column(
-        children: [
-          Text(
-            "Big Bonus 🎉",
-            style: blackTextStyle.copyWith(
-              fontSize: 32.0,
-              fontWeight: semiBold,
+    return BlocBuilder<AuthCubit, AuthState>(
+      builder: (context, state) {
+        if (state is AuthSuccess) {
+          return Container(
+            margin: const EdgeInsets.only(top: 80.0),
+            width: 250.0,
+            child: Column(
+              children: [
+                Text(
+                  "Big Bonus 🎉",
+                  style: blackTextStyle.copyWith(
+                    fontSize: 32.0,
+                    fontWeight: semiBold,
+                  ),
+                ),
+                const SizedBox(
+                  height: 10.0,
+                ),
+                Text(
+                  "We give you early credit so that you can buy a flight ticket",
+                  style: greyTextStyle.copyWith(
+                    fontSize: 16.0,
+                    fontWeight: light,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
             ),
-          ),
-          const SizedBox(
-            height: 10.0,
-          ),
-          Text(
-            "We give you early credit so that you can buy a flight ticket",
-            style: greyTextStyle.copyWith(
-              fontSize: 16.0,
-              fontWeight: light,
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
+          );
+        } else {
+          return const SizedBox();
+        }
+      },
     );
   }
 }

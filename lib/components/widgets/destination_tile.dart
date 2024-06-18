@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_plane/components/pages/detail_page.dart';
+import 'package:my_plane/models/destination_model.dart';
 import 'package:my_plane/shared/utils.dart';
 
 class DestinationTile extends StatelessWidget {
@@ -10,6 +11,7 @@ class DestinationTile extends StatelessWidget {
     required this.city,
     this.rating = 0.0,
     this.padding = EdgeInsets.zero,
+    this.destinationModel,
   }) : super(key: key);
 
   final String imageUrl;
@@ -18,13 +20,17 @@ class DestinationTile extends StatelessWidget {
   final double rating;
   final EdgeInsets padding;
 
+  final DestinationModel? destinationModel;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (() => Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const DetailPage(),
+              builder: (context) => DetailPage(
+                destinationModel: destinationModel!,
+              ),
             ),
           )),
       child: Container(

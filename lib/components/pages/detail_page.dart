@@ -1,19 +1,27 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:my_plane/components/pages/choose_seat_page.dart';
 import 'package:my_plane/components/widgets/custom_button.dart';
+import 'package:my_plane/components/widgets/expandedable_text.dart';
 import 'package:my_plane/components/widgets/interest_item.dart';
 import 'package:my_plane/components/widgets/photo_item.dart';
+import 'package:my_plane/models/destination_model.dart';
 import 'package:my_plane/shared/utils.dart';
 
 class DetailPage extends StatelessWidget {
-  const DetailPage({Key? key}) : super(key: key);
+  const DetailPage({Key? key, required this.destinationModel})
+      : super(key: key);
+
+  final DestinationModel destinationModel;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kBackgroundColor,
       body: SingleChildScrollView(
-        // physics: const BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         child: Stack(
           children: [
             backgroundImage(),
@@ -29,9 +37,9 @@ class DetailPage extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: 450.0,
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/images/image_destination1.png'),
+          image: NetworkImage(destinationModel.imageUrl),
           fit: BoxFit.cover,
         ),
       ),
@@ -83,7 +91,7 @@ class DetailPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Lake Ciliwung",
+                        destinationModel.name,
                         style: whiteTextStyle.copyWith(
                           fontSize: 24.0,
                           fontWeight: semiBold,
@@ -91,7 +99,7 @@ class DetailPage extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                       ),
                       Text(
-                        "Tangerang",
+                        destinationModel.city,
                         style: whiteTextStyle.copyWith(
                           fontSize: 16.0,
                           fontWeight: light,
@@ -106,14 +114,14 @@ class DetailPage extends StatelessWidget {
                       width: 20.0,
                       height: 20.0,
                       margin: const EdgeInsets.only(right: 2.0),
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage('assets/images/icon_star.png'),
+                          image: NetworkImage(destinationModel.imageUrl),
                         ),
                       ),
                     ),
                     Text(
-                      "4.8",
+                      destinationModel.rating.toString(),
                       style: whiteTextStyle.copyWith(
                         fontSize: 14.0,
                         fontWeight: medium,
@@ -151,11 +159,15 @@ class DetailPage extends StatelessWidget {
                 const SizedBox(
                   height: 6.0,
                 ),
-                Text(
-                  "Berada di jalur jalan provinsi yang menghubungkan Denpasar Singaraja serta letaknya yang dekat dengan Kebun Raya Eka Karya menjadikan tempat Bali.",
-                  style: blackTextStyle.copyWith(
-                    height: 2.0,
+                ExpandableText(
+                  style: greyTextStyle.copyWith(
+                    fontSize: 14.0,
+                    fontWeight: light,
                   ),
+                  text: destinationModel.description != ''
+                      ? destinationModel.description
+                      : '-',
+                  trimLength: 100,
                 ),
 
                 // NOTE: PHOTOS
@@ -213,7 +225,11 @@ class DetailPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "IDR 2.500.000",
+                        NumberFormat.currency(
+                          locale: 'id_ID',
+                          symbol: 'IDR ',
+                          decimalDigits: 0,
+                        ).format(destinationModel.price),
                         style: blackTextStyle.copyWith(
                           fontSize: 18.0,
                           fontWeight: medium,
@@ -233,10 +249,15 @@ class DetailPage extends StatelessWidget {
                   width: 170.0,
                   title: "Book Now",
                   onPressed: () {
+                    debugPrint(destinationModel.id);
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const ChooseSeatPage()));
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ChooseSeatPage(
+                          destinationModel: destinationModel,
+                        ),
+                      ),
+                    );
                   },
                 ),
               ],

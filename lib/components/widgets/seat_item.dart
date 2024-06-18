@@ -1,72 +1,82 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_plane/cubit/seat_cubit.dart';
 import 'package:my_plane/shared/utils.dart';
 
 class SeatItem extends StatelessWidget {
-  const SeatItem({Key? key, required this.status}) : super(key: key);
+  const SeatItem({Key? key, this.isAvailable = true, required this.id})
+      : super(key: key);
 
   // NOTE: 0 = available, 1 = selected, 2 = unavailable
-  final int status;
-
-  backgroundColor() {
-    switch (status) {
-      case 0:
-        return kAvailableColor;
-      case 1:
-        return kPrimaryColor;
-      case 2:
-        return kUnavailableColor;
-      default:
-        return kUnavailableColor;
-    }
-  }
-
-  borderColor() {
-    switch (status) {
-      case 0:
-        return kPrimaryColor;
-      case 1:
-        return kPrimaryColor;
-      case 2:
-        return kUnavailableColor;
-      default:
-        return kUnavailableColor;
-    }
-  }
-
-  child() {
-    switch (status) {
-      case 0:
-        return const SizedBox();
-      case 1:
-        return Center(
-          child: Text(
-            "YOU",
-            style: whiteTextStyle.copyWith(
-              fontWeight: semiBold,
-            ),
-          ),
-        );
-      case 2:
-        return const SizedBox();
-      default:
-        return const SizedBox();
-    }
-  }
+  final bool isAvailable;
+  final String id;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 48.0,
-      height: 48.0,
-      decoration: BoxDecoration(
-        color: backgroundColor(),
-        borderRadius: BorderRadius.circular(15.0),
-        border: Border.all(
-          color: borderColor(),
-          width: 2.0,
+    bool isSelected = context.read<SeatCubit>().state.contains(id);
+
+    backgroundColor() {
+      if (isAvailable) {
+        if (isSelected) {
+          return kPrimaryColor;
+        } else {
+          return kAvailableColor;
+        }
+      } else {
+        return kUnavailableColor;
+      }
+    }
+
+    borderColor() {
+      if (isAvailable) {
+        return kPrimaryColor;
+      } else {
+        return kUnavailableColor;
+      }
+    }
+
+    child() {
+      if (isAvailable) {
+        if (isSelected) {
+          return Center(
+            child: Text(
+              'YOU',
+              style: whiteTextStyle.copyWith(
+                fontSize: 13.0,
+                fontWeight: semiBold,
+              ),
+            ),
+          );
+        }
+      } else {
+        return Center(
+          child: Icon(
+            Icons.close,
+            color: kWhiteColor,
+          ),
+        );
+      }
+    }
+
+    return GestureDetector(
+      onTap: () {
+        if (isAvailable) {
+          context.read<SeatCubit>().addSeat(id);
+        }
+      },
+      child: Container(
+        width: 48.0,
+        height: 48.0,
+        decoration: BoxDecoration(
+          color: backgroundColor(),
+          borderRadius: BorderRadius.circular(15.0),
+          border: Border.all(
+            color: borderColor(),
+            width: 2.0,
+          ),
         ),
+        child: child(),
       ),
-      child: child(),
     );
   }
 }

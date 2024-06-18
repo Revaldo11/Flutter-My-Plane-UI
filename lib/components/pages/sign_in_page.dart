@@ -5,13 +5,11 @@ import 'package:my_plane/components/widgets/custom_text_form_field.dart';
 import 'package:my_plane/cubit/auth_cubit.dart';
 import 'package:my_plane/shared/utils.dart';
 
-class SignUpPage extends StatelessWidget {
-  SignUpPage({Key? key}) : super(key: key);
+class SignInPage extends StatelessWidget {
+  SignInPage({Key? key}) : super(key: key);
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController hobbyController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -29,14 +27,6 @@ class SignUpPage extends StatelessWidget {
     }
 
     Widget inputSection() {
-      Widget inputName() {
-        return CustomTextFormField(
-          controller: nameController,
-          title: 'Full Name',
-          hintText: 'Enter Your Full Name',
-        );
-      }
-
       Widget inputEmail() {
         return CustomTextFormField(
           controller: emailController,
@@ -54,21 +44,13 @@ class SignUpPage extends StatelessWidget {
         );
       }
 
-      Widget inputHobby() {
-        return CustomTextFormField(
-          controller: hobbyController,
-          title: 'Hobby',
-          hintText: 'Enter Your Hobby',
-        );
-      }
-
       Widget submitButton() {
         return BlocConsumer<AuthCubit, AuthState>(
           listener: (context, state) {
             if (state is AuthSuccess) {
               Navigator.pushNamedAndRemoveUntil(
                 context,
-                '/bonus',
+                '/main',
                 (route) => false,
               );
             } else if (state is AuthFailed) {
@@ -90,12 +72,9 @@ class SignUpPage extends StatelessWidget {
               margin: const EdgeInsets.only(top: 30.0),
               title: 'Get Started',
               onPressed: () {
-                context.read<AuthCubit>().signUp(
-                      emailController.text,
-                      passwordController.text,
-                      nameController.text,
-                      hobbyController.text,
-                    );
+                context
+                    .read<AuthCubit>()
+                    .signIn(emailController.text, passwordController.text);
               },
             );
           },
@@ -116,19 +95,17 @@ class SignUpPage extends StatelessWidget {
         ),
         child: Column(
           children: [
-            inputName(),
             inputEmail(),
             inputPassword(),
-            inputHobby(),
             submitButton(),
             Opacity(
               opacity: 0.7,
               child: TextButton(
                 onPressed: () {
                   Navigator.pushNamedAndRemoveUntil(
-                      context, '/sign-in', (route) => false);
+                      context, '/sign-up', (route) => false);
                 },
-                child: const Text('Sign In'),
+                child: const Text('Sign Up'),
                 style: TextButton.styleFrom(
                   textStyle: blackTextStyle.copyWith(
                     fontSize: 16,
