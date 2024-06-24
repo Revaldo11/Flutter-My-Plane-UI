@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage> {
               children: [
                 header(),
                 popularDestination(state.destination),
-                newDestination(),
+                newDestination(state.destination),
               ],
             ),
           );
@@ -135,7 +135,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget newDestination() {
+  Widget newDestination(List<DestinationModel> destinations) {
     return Container(
       margin: EdgeInsets.only(
           bottom: 140.0, top: 30.0, left: defaultMargin, right: defaultMargin),
@@ -149,35 +149,13 @@ class _HomePageState extends State<HomePage> {
               fontWeight: semiBold,
             ),
           ),
-          const DestinationTile(
-            imageUrl: "assets/images/image_destination6.png",
-            name: "Danau Beratan",
-            city: "Singaraja",
-            padding: EdgeInsets.all(10.0),
-          ),
-          const DestinationTile(
-            imageUrl: "assets/images/image_destination7.png",
-            name: "Sydney Opera",
-            city: "Australia",
-            padding: EdgeInsets.all(10.0),
-          ),
-          const DestinationTile(
-            imageUrl: "assets/images/image_destination8.png",
-            name: "Roma",
-            city: "Italy",
-            padding: EdgeInsets.all(10.0),
-          ),
-          const DestinationTile(
-            imageUrl: "assets/images/image_destination9.png",
-            name: "Payung Teduh",
-            city: "Singapore",
-            padding: EdgeInsets.all(10.0),
-          ),
-          const DestinationTile(
-            imageUrl: "assets/images/image_destination10.png",
-            name: "Hill Hey",
-            city: "Monaco",
-            padding: EdgeInsets.all(10.0),
+          Column(
+            children: destinations
+                .map(
+                  (destination) =>
+                      DestinationTile(destinationModel: destination),
+                )
+                .toList(),
           ),
         ],
       ),

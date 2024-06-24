@@ -5,10 +5,12 @@ import 'package:my_plane/components/pages/bonus_page.dart';
 import 'package:my_plane/components/pages/main_page.dart';
 import 'package:my_plane/components/pages/sign_in_page.dart';
 import 'package:my_plane/components/pages/sign_up_page.dart';
+import 'package:my_plane/components/pages/succes_page.dart';
 import 'package:my_plane/cubit/auth_cubit.dart';
 import 'package:my_plane/cubit/destination_cubit.dart';
 import 'package:my_plane/cubit/page_cubit.dart';
 import 'package:my_plane/cubit/seat_cubit.dart';
+import 'package:my_plane/cubit/transaction_cubit.dart';
 
 import 'components/pages/get_started_page.dart';
 import 'components/pages/spalsh_page.dart';
@@ -30,6 +32,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => AuthCubit()),
         BlocProvider(create: (context) => DestinationCubit()),
         BlocProvider(create: (context) => SeatCubit()),
+        BlocProvider(create: (context) => TransactionCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -40,6 +43,7 @@ class MyApp extends StatelessWidget {
           '/sign-in': (context) => SignInPage(),
           '/bonus': (context) => const BonusPage(),
           '/main': (context) => const MainPage(),
+          '/success': (context) => const SuccesPage(),
         },
       ),
     );

@@ -8,6 +8,7 @@ import 'package:my_plane/components/widgets/custom_button.dart';
 import 'package:my_plane/components/widgets/seat_item.dart';
 import 'package:my_plane/cubit/seat_cubit.dart';
 import 'package:my_plane/models/destination_model.dart';
+import 'package:my_plane/models/transaction_model.dart';
 import 'package:my_plane/shared/utils.dart';
 
 class ChooseSeatPage extends StatelessWidget {
@@ -392,16 +393,35 @@ class ChooseSeatPage extends StatelessWidget {
   }
 
   Widget checkoutButton(BuildContext context) {
-    return CustomButton(
-      width: 327.0,
-      margin: const EdgeInsets.only(top: 30.0),
-      title: "Continue to Checkout",
-      onPressed: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const CheckoutPage(),
-            ));
+    return BlocBuilder<SeatCubit, List<String>>(
+      builder: (context, state) {
+        int price = destinationModel.price * state.length;
+
+        return CustomButton(
+          width: 327.0,
+          margin: const EdgeInsets.only(top: 30.0),
+          title: "Continue to Checkout",
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => CheckoutPage(
+                  transaction: TransactionModel(
+                    id: 'TX-${DateTime.now().millisecondsSinceEpoch}',
+                    destination: destinationModel,
+                    amountOfTraveler: context.read<SeatCubit>().state.length,
+                    selectedSeats: state.join(', '),
+                    insurance: true,
+                    refundable: false,
+                    price: destinationModel.price * state.length,
+                    grandTotal: price + (price * 0.05).toInt(),
+                    vat: 0.45,
+                  ),
+                ),
+              ),
+            );
+          },
+        );
       },
     );
   }

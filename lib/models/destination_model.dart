@@ -7,8 +7,9 @@ class DestinationModel extends Equatable {
   final String imageUrl;
   final double rating;
   final int price;
-  final String description;
   final String status;
+  final String? description;
+
   const DestinationModel({
     required this.id,
     this.name = '',
@@ -16,24 +17,42 @@ class DestinationModel extends Equatable {
     this.imageUrl = '',
     this.rating = 0.0,
     this.price = 0,
-    this.description = '',
     this.status = '',
+    this.description,
   });
 
-  factory DestinationModel.fromJson(String id, Map<String, dynamic> json) {
-    return DestinationModel(
-      id: id,
-      name: json['name'],
-      city: json['city'],
-      imageUrl: json['image_url'],
-      rating: json['rating'].toDouble(),
-      price: json['price'],
-      description: json['description'],
-      status: json['status'],
-    );
-  }
+  factory DestinationModel.fromJson(String id, Map<String, dynamic> json) =>
+      DestinationModel(
+        id: id,
+        name: json['name'],
+        city: json['city'],
+        imageUrl: json['image_url'],
+        rating: json['rating'].toDouble(),
+        price: json['price'],
+        status: json['status'],
+        description: json['description'],
+      );
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': name,
+        'city': city,
+        'image_url': imageUrl,
+        'rating': rating,
+        'price': price,
+        'status': status,
+        'description': description,
+      };
 
   @override
-  List<Object?> get props =>
-      [id, name, city, imageUrl, rating, price, description];
+  List<Object?> get props => [
+        id,
+        name,
+        city,
+        imageUrl,
+        rating,
+        price,
+        status,
+        description,
+      ];
 }

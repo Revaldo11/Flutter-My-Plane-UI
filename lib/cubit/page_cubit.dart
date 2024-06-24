@@ -5,5 +5,6 @@ class PageCubit extends Cubit<int> {
 
   void changePage(int page) {
     emit(page);
+    print("Page: $page");
   }
 }

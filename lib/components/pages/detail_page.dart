@@ -1,12 +1,14 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:my_plane/components/pages/choose_seat_page.dart';
 import 'package:my_plane/components/widgets/custom_button.dart';
 import 'package:my_plane/components/widgets/expandedable_text.dart';
 import 'package:my_plane/components/widgets/interest_item.dart';
 import 'package:my_plane/components/widgets/photo_item.dart';
+import 'package:my_plane/cubit/seat_cubit.dart';
 import 'package:my_plane/models/destination_model.dart';
 import 'package:my_plane/shared/utils.dart';
 
@@ -164,9 +166,7 @@ class DetailPage extends StatelessWidget {
                     fontSize: 14.0,
                     fontWeight: light,
                   ),
-                  text: destinationModel.description != ''
-                      ? destinationModel.description
-                      : '-',
+                  text: destinationModel.description ?? '',
                   trimLength: 100,
                 ),
 
@@ -245,18 +245,23 @@ class DetailPage extends StatelessWidget {
                   ),
                 ),
                 // NOTE: BOOK BUTTON
-                CustomButton(
-                  width: 170.0,
-                  title: "Book Now",
-                  onPressed: () {
-                    debugPrint(destinationModel.id);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ChooseSeatPage(
-                          destinationModel: destinationModel,
-                        ),
-                      ),
+                BlocBuilder<SeatCubit, List<String>>(
+                  builder: (context, state) {
+                    return CustomButton(
+                      width: 170.0,
+                      title: "Book Now",
+                      onPressed: () {
+                        debugPrint(destinationModel.id);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ChooseSeatPage(
+                              destinationModel: destinationModel,
+                            ),
+                          ),
+                        );
+                        context.read<SeatCubit>().clearSeat();
+                      },
                     );
                   },
                 ),

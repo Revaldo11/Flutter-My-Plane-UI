@@ -6,18 +6,10 @@ import 'package:my_plane/shared/utils.dart';
 class DestinationTile extends StatelessWidget {
   const DestinationTile({
     Key? key,
-    required this.imageUrl,
-    required this.name,
-    required this.city,
-    this.rating = 0.0,
     this.padding = EdgeInsets.zero,
     this.destinationModel,
   }) : super(key: key);
 
-  final String imageUrl;
-  final String name;
-  final String city;
-  final double rating;
   final EdgeInsets padding;
 
   final DestinationModel? destinationModel;
@@ -44,8 +36,8 @@ class DestinationTile extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(defaultRadius),
-              child: Image.asset(
-                imageUrl,
+              child: Image.network(
+                destinationModel!.imageUrl,
                 width: 70.0,
                 height: 70.0,
                 fit: BoxFit.cover,
@@ -58,7 +50,7 @@ class DestinationTile extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    name,
+                    destinationModel!.name,
                     style: blackTextStyle.copyWith(
                       fontSize: 18.0,
                       fontWeight: medium,
@@ -66,7 +58,7 @@ class DestinationTile extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                   Text(
-                    city,
+                    destinationModel!.city,
                     style: greyTextStyle.copyWith(
                       fontSize: 14.0,
                       fontWeight: light,
@@ -88,7 +80,7 @@ class DestinationTile extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  rating.toString(),
+                  destinationModel!.rating.toString(),
                   style: blackTextStyle.copyWith(
                     fontSize: 14.0,
                     fontWeight: medium,
