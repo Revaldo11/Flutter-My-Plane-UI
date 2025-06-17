@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "592804202427",
+    "project_id": "air-plane-4c825",
+    "storage_bucket": "air-plane-4c825.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:592804202427:android:aac768513528d420ffe69e",
+        "android_client_info": {
+          "package_name": "com.revaldo.my_plane"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "592804202427-vsckmpbkiu7qh3904b0ha6b8slhiu0eg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDciwklZvSoV2iF-B_3a99i2O506ReH4Is"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "592804202427-vsckmpbkiu7qh3904b0ha6b8slhiu0eg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "592804202427-ei6b1ana2995vpjgv85tg4ijsjlvb8es.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.revaldo.myPlane"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

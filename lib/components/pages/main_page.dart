@@ -40,8 +40,6 @@ class MainPage extends StatelessWidget {
       case 1:
         return const TransactionPage();
       case 2:
-        return const WalletPages();
-      case 3:
         return const SettingPage();
       default:
         return const HomePage();
@@ -83,10 +81,6 @@ class BottomNavigation extends StatelessWidget {
             ),
             CustomBottomNavItem(
               currentIndex: 2,
-              imageUrl: 'assets/images/icon_card.png',
-            ),
-            CustomBottomNavItem(
-              currentIndex: 3,
               imageUrl: 'assets/images/icon_settings.png',
             ),
           ],
